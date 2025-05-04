@@ -1,8 +1,6 @@
-import { z } from "zod";
-
-// 从MCP SDK导入
-import { McpAgent } from "@modelcontextprotocol/sdk/agent";
-import { McpServer } from "@modelcontextprotocol/sdk/server";
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { z } from 'zod';
 
 // 执行上下文接口
 interface ExecutionContext {
@@ -14,8 +12,8 @@ interface Env {
   [key: string]: any;
 }
 
-// 定义我们的MCP代理和工具
-export class McpTimeServer extends McpAgent {
+// 定义我们的MCP时间服务器
+export class McpTimeServer {
   server = new McpServer({
     name: "MCP Time Server",
     version: "1.0.0",
@@ -24,7 +22,8 @@ export class McpTimeServer extends McpAgent {
   async init() {
     // 获取当前时间工具
     this.server.tool(
-      "get_current_time",
+      'get_current_time',
+      '获取指定时区的当前时间',
       { 
         timezone: z.string().optional()
       },
@@ -34,14 +33,14 @@ export class McpTimeServer extends McpAgent {
           const tz = timezone || "UTC";
           
           // 日期格式选项
-          const options = {
+          const options: Intl.DateTimeFormatOptions = {
             timeZone: tz,
-            year: 'numeric',
-            month: 'numeric',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
+            year: "numeric",
+            month: "numeric",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric",
             hour12: false, // 24小时制
           };
           
@@ -72,7 +71,8 @@ export class McpTimeServer extends McpAgent {
 
     // 在不同时区之间转换时间
     this.server.tool(
-      "convert_time",
+      'convert_time',
+      '在不同时区之间转换时间',
       {
         source_timezone: z.string(),
         time: z.string(), // 格式: HH:MM
@@ -110,16 +110,16 @@ export class McpTimeServer extends McpAgent {
           // 格式化源时区以验证
           const sourceFormatter = new Intl.DateTimeFormat('en-US', {
             timeZone: source_timezone,
-            hour: 'numeric',
-            minute: 'numeric',
+            hour: "numeric",
+            minute: "numeric",
             hour12: false
           });
           
           // 格式化目标时区
           const targetFormatter = new Intl.DateTimeFormat('en-US', {
             timeZone: target_timezone,
-            hour: 'numeric',
-            minute: 'numeric',
+            hour: "numeric",
+            minute: "numeric",
             hour12: false
           });
           
@@ -160,24 +160,35 @@ export class McpTimeServer extends McpAgent {
       }
     );
   }
-
-  // 提供MCP服务
-  static serve(path = "/mcp") {
-    return {
-      fetch(request: Request, env: Env, ctx: ExecutionContext) {
-        // MCP服务实现
-        return new Response("MCP服务器", { status: 200 });
-      }
-    };
-  }
-
-  // 提供服务器发送事件
-  static serveSSE(path = "/sse") {
-    return {
-      fetch(request: Request, env: Env, ctx: ExecutionContext) {
-        // SSE实现
-        return new Response("SSE端点", { status: 200 });
-      }
-    };
-  }
 }
+
+// 添加命令行入口点
+export function cli() {
+  async function main() {
+    const server = new McpTimeServer();
+    await server.init();
+    
+    const transport = new StdioServerTransport();
+    await server.server.connect(transport);
+    console.log('MCP时间服务器正在通过stdio运行');
+  }
+  
+  main().catch((error) => {
+    console.error('主函数出现致命错误:', error);
+    process.exit(1);
+  });
+}
+
+// 对于Cloudflare Workers环境的处理函数
+export default {
+  fetch(request: Request, env: Env, ctx: ExecutionContext) {
+    const url = new URL(request.url);
+    
+    if (url.pathname === "/mcp") {
+      // 在这里处理MCP请求
+      return new Response("MCP服务器", { status: 200 });
+    }
+    
+    return new Response("未找到", { status: 404 });
+  },
+};

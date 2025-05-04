@@ -7,8 +7,8 @@ GitHub README.md中的徽章通常使用特定的URL格式。我们需要确保�
 ```markdown
 # MCP 时间服务器
 
-[![npm版本](https://img.shields.io/npm/v/mcp-time-server.svg)](https://www.npmjs.com/package/mcp-time-server)
-[![许可证](https://img.shields.io/npm/l/mcp-time-server.svg)](https://github.com/SzeMeng76/mcp-time-server/blob/main/LICENSE)
+[![NPM版本](https://img.shields.io/npm/v/mcp-time-server)](https://www.npmjs.com/package/mcp-time-server)
+[![许可证](https://img.shields.io/github/license/SzeMeng76/mcp-time-server)](https://github.com/SzeMeng76/mcp-time-server/blob/main/LICENSE)
 
 一个基于模型上下文协议(MCP)的时间服务器，提供时区相关工具。可以获取指定时区的当前时间以及在不同时区之间转换时间。
 

@@ -4,6 +4,7 @@
   "description": "带有时区转换工具的MCP时间服务器",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "bin": {
     "mcp-time-server": "bin/mcp-time-server.js"
   },

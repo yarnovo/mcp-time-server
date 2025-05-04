@@ -1,0 +1,42 @@
+{
+  "name": "mcp-time-server",
+  "version": "1.0.0",
+  "description": "带有时区转换工具的MCP时间服务器",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "mcp-time-server": "bin/mcp-time-server.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "start": "node bin/mcp-time-server.js",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": ["mcp", "model context protocol", "time server", "timezone"],
+  "author": "SzeMeng76",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.11.0",
+    "zod": "^3.24.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SzeMeng76/mcp-time-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SzeMeng76/mcp-time-server/issues"
+  },
+  "homepage": "https://github.com/SzeMeng76/mcp-time-server#readme"
+}

@@ -1,9 +1,3 @@
-看起来您的GitHub页面上没有显示徽章图标。让我来帮您解决这个问题。
-
-GitHub README.md中的徽章通常使用特定的URL格式。我们需要确保您使用的是正确的徽章URL，并且格式正确。
-
-以下是修正后的README.md代码，调整了徽章部分：
-
 ```markdown
 # MCP Time Server
 

@@ -1,4 +1,3 @@
-```markdown
 # MCP 时间服务器
 
 ![MCP](https://img.shields.io/badge/MCP-Time%20Server-blue)
@@ -6,7 +5,7 @@
 ![License](https://img.shields.io/github/license/SzeMeng76/mcp-time-server)
 
 一个基于模型上下文协议(MCP)的时间服务器，提供时区相关工具。可以获取指定时区的当前时间以及在不同时区之间转换时间。
-
+```markdown
 ## 安装
 
 您可以通过npm全局安装：

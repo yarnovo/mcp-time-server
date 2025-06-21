@@ -1,29 +1,39 @@
 {
-  "name": "mcp-time-server",
-  "version": "1.0.1",
-  "description": "带有时区转换工具的MCP时间服务器",
+  "name": "system-time-mcp",
+  "version": "1.0.0",
+  "description": "获取系统时间的 MCP 服务器",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "bin": {
-    "mcp-time-server": "bin/mcp-time-server.js"
+    "system-time-mcp": "bin/system-time-mcp.js"
   },
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build",
-    "start": "node bin/mcp-time-server.js",
-    "test": "echo \"No tests specified\" && exit 0"
+    "start": "node bin/system-time-mcp.js",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage"
   },
-  "keywords": ["mcp", "model context protocol", "time server", "timezone"],
+  "keywords": [
+    "system time",
+    "time",
+    "date",
+    "model context protocol",
+    "mcp"
+  ],
   "author": "SzeMeng76",
   "license": "MIT",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.11.0",
-    "zod": "^3.24.3"
+    "@modelcontextprotocol/sdk": "^1.11.0"
   },
   "devDependencies": {
     "@types/node": "^22.15.3",
-    "typescript": "^5.8.3"
+    "@vitest/ui": "^3.2.4",
+    "c8": "^10.1.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
   },
   "engines": {
     "node": ">=18.0.0"
